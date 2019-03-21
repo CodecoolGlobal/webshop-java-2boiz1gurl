@@ -1,11 +1,7 @@
 package com.codecool.shop.config;
 
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -42,5 +38,6 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Together: Our Community Cookbook", 17.15f, "USD", "Together celebrates the power of cooking to connect us to one another.", tablet, amazon));
         productDataStore.add(new Product("Les Miserables", 16.24f, "USD", "Victor Hugo's tale of injustice, heroism and love.", tablet, amazon));
         productDataStore.add(new Product("Tales from the Inner City", 26.62f, "USD", "Where can we live if not in each other's shadow?", tablet, amazon));
+
     }
 }

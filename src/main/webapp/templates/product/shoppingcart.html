@@ -18,7 +18,7 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
@@ -33,40 +33,26 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Cool Reads</h1>
+        <h5>Books in my cart:</h5>
     </div>
 </div>
-
 <div class="container">
-    <div class="text-right">
-        <button type="button" class="btn btn-dark" onclick="location.href='/shoppingcart'">Check Shopping Cart</button>
-    </div>
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
-
-    <div id="products" class="row">
-        <div class="col col-lg-3" th:each="prod,iterStat : ${products}">
-            <div class="card">
-                <img class="card-img-top" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="card-header">
-                    <h5 class="card-title" th:text="${prod.name}">Product name</h5>
-                </div>
-                <div class="card-body">
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
-                </div>
-                <div class="card-footer">
-                    <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                    </div>
-                    <div class="card-text">
-                        <a class="btn btn-success" th:href="@{/addtocart?productId=} + ${prod.id}">Add to cart</a>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div th:each="prod,iterStat : ${products}">
+                <ul>
+                    <img class="card-img-top" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                    <li th:text="${prod.name}"></li>
+                    <p class="lead" th:text="${prod.getPrice()}"></p>
+                </ul>
             </div>
         </div>
+        <div class="col-sm-8">
+            <!--<p>Total price: </p>-->
+        </div>
     </div>
-
 </div>
+
 
 <div th:replace="footer.html :: copy"></div>
 
