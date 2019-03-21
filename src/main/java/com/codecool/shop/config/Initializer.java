@@ -52,6 +52,7 @@ public class Initializer implements ServletContextListener {
         //setting up products and printing it
         productDataStore.add(new Product("Wuthering Heights", 7.62f, "USD", "Emily Bronte's only novel, a work of tremendous and far-reaching influence.", bestSeller, penguin));
         productDataStore.add(new Product("Thunderhead", 10.37f, "USD", "The dark and thrilling sequel to Scythe, the New York Times sci-fi bestseller.", horror, bloomsbury));
+        productDataStore.add(new Product("All Quiet on the Western Front", 10.91f, "USD", "One by one the boys begin to fall...", bestSeller, penguin));
         productDataStore.add(new Product("Sky in the Deep", 17.89f, "USD", "A 2018 Most Anticipated Young Adult book from debut author Adrienne Young.", gastronomy, harperCollins));
         productDataStore.add(new Product("Journey to the End of the Night", 18.39f, "USD", "Journey to the End of the Night is a literary symphony of violence, cruelty and obscene nihilism.", bestSeller, walker));
         productDataStore.add(new Product("Together: Our Community Cookbook", 17.15f, "USD", "Together celebrates the power of cooking to connect us to one another.", scifi, penguin));
