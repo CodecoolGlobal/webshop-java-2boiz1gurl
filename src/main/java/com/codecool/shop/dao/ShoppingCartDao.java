@@ -8,5 +8,5 @@ public interface ShoppingCartDao {
 
     void addToCart(int id);
     void removeFromCart(int id);
-    void sumOfPrice(float price);
+    float getSumOfPrice();
 }

@@ -26,11 +26,12 @@ public class ShoppingCartDaoMem implements ShoppingCartDao {
     }
 
     @Override
-    public void sumOfPrice(float defaultPrice) {
+    public float getSumOfPrice() {
         Float sumOfPrice = 0.0f;
         for (int i = 0; i < productsInShoppingCart.size(); i++) {
             sumOfPrice += productsInShoppingCart.get(i).getDefaultPrice();
         }
+        return sumOfPrice;
     }
 
     @Override

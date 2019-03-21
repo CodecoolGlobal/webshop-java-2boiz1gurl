@@ -28,8 +28,8 @@ public class ShoppingCartServlet extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("category", productCategoryDataStore.find(1));
         context.setVariable("products", ShoppingCartDaoMem.getInstance().getProductsInShoppingCart());
+        context.setVariable("sumPrice", ShoppingCartDaoMem.getInstance().getSumOfPrice());
         engine.process("product/shoppingcart.html", context, resp.getWriter());
     }
 }
