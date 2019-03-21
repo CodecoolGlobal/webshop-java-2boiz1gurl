@@ -11,20 +11,35 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <!-- These are the actual navbar buttons. Add new ones as you see fit based on this template. Each new button is a new <li> tag -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/index">Home <span class="sr-only">(current)</span></a>
                 </li>
                 !<!-- This is the dropdown for the genres/categories -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
+                    <a class="nav-link dropdown-toggle" href="#" methods="get" id="filterByCategory" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by category
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" onclick="location.href = '/?categories=Bestseller'">Bestseller</a>
+                        <a class="dropdown-item" onclick="location.href = '/?categories=Gastronomy'">Gastronomy</a>
+                        <a class="dropdown-item" onclick="location.href = '/?categories=SciFi'">SciFi</a>
+                        <a class="dropdown-item" onclick="location.href = '/?categories=Horror'">Horror</a>
+                        <a class="dropdown-item" onclick="location.href = '/?categories=History'">History</a>
                     </div>
                 </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" methods="get" id="filterByPublisher" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by publisher
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" onclick="location.href = '/?publishers=Bloomsbury+Publishing+PLC'">Bloomsbury Publishing PLC</a>
+                        <a class="dropdown-item" onclick="location.href = '/?publishers=HarperCollins+Publishers'">HarperCollins Publishers</a>
+                        <a class="dropdown-item" onclick="location.href = '/?publishers=Walker+Books+Ltd'">Walker Books Ltd</a>
+                        <a class="dropdown-item" onclick="location.href = '/?publishers=Penguin+Putnam+Inc'">Penguin Putnam Inc</a>
+                    </div>
+                </li>
+
+
                 <li class="nav-item active">
                     <a class="btn nav-link" onclick="location.href='/shoppingcart'"><img src="../../static/asset_images/cart.png" height="27" width="30"/> <span class="sr-only">(current)</span></a>
                 </li>
