@@ -43,20 +43,37 @@
     <div class="row">
         <div class="col-sm-4">
             <div th:each="prod,iterStat : ${products}">
-                <ul>
+                <div class="card">
                     <img class="card-img-top" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                    <li th:text="${prod.name}"></li>
-                    <p class="lead" th:text="${prod.getPrice()}"></p>
-                </ul>
+                    <div class="card-header">
+                        <h5 class="card-title" th:text="${prod.name}">Product name</h5>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-text">
+                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                        </div>
+                        <div class="card-text">
+                            <a class="btn btn-success" th:href="@{/addtocart?productId=} + ${prod.id}">Remove</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-sm-8">
-            <p>Total Price: </p>
-            <p th:text="${sumPrice}"></p>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Total Price:</h1>
+                    <h1 th:text="${sumPrice}"></h1>
+                </div>
+                <div class="card-footer">
+                    <div class="card-text">
+                        <a class="btn btn-success">Confirm Purchase</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 
 <div th:replace="footer.html :: copy"></div>
 
