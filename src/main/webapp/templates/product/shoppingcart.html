@@ -30,11 +30,14 @@
 
 <body>
 
+<div th:replace="fragments/header.html ::  pageheader">
+</div>
+
+<div th:replace="fragments/navigation.html ::  navbar">
+</div>
+
 <div class="container">
-    <div class="jumbotron">
-        <h1>Cool Reads</h1>
-        <h5>Books in my cart:</h5>
-    </div>
+    <h5>Books in my cart:</h5>
 </div>
 <div class="container">
     <div class="row">
