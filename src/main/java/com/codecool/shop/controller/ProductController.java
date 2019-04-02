@@ -7,6 +7,7 @@ import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.datamanager.DataManager;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -16,14 +17,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/"}, loadOnStartup = 1)
+@WebServlet(urlPatterns = {"/asd"}, loadOnStartup = 1)
 public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        DataManager db = DataManager.getInstance();
+        try {
+            db.proba();
+        } catch(SQLException exception){
+            System.out.println(exception);
+        }
+
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
 
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();

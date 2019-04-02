@@ -18,7 +18,6 @@ public class DataManager {
         return instance;
     }
 
-
     private DataManager(){
         try {
             connection =  DriverManager.getConnection(DATABASE, DB_USER, DB_PASSWORD);
@@ -28,13 +27,15 @@ public class DataManager {
     }
 
 
-    public void add(String name) throws SQLException{
-        PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO sprints (name)" +
-                    "VALUES (?)"
-        );
-        statement.setString(1,name);
-        statement.execute();
+    public void testQuery() throws SQLException{
+        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE id = ?");
+        stmnt.setInt(1,1);
+        ResultSet resultSet = stmnt.executeQuery();
+        while(resultSet.next()){
+            String title = resultSet.getString("title");
+            String desrciption = resultSet.getString("description");
+            System.out.println("RESULT: " + title + " " + desrciption);
+        }
     }
 
 }
