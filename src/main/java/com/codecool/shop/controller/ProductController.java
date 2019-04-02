@@ -29,7 +29,8 @@ public class ProductController extends HttpServlet {
 
         DataManager db = DataManager.getInstance();
         try {
-            db.proba();
+            db.getProductByCategory();
+            db.getProductByPublisher();
         } catch(SQLException exception){
             System.out.println(exception);
         }

@@ -18,24 +18,41 @@ public class DataManager {
         return instance;
     }
 
-    private DataManager(){
+    private DataManager() {
         try {
-            connection =  DriverManager.getConnection(DATABASE, DB_USER, DB_PASSWORD);
+            connection = DriverManager.getConnection(DATABASE, DB_USER, DB_PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-
-    public void testQuery() throws SQLException{
-        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE id = ?");
-        stmnt.setInt(1,1);
-        ResultSet resultSet = stmnt.executeQuery();
-        while(resultSet.next()){
+    private void getQueryData(ResultSet resultSet) throws SQLException{
+        while (resultSet.next()) {
             String title = resultSet.getString("title");
-            String desrciption = resultSet.getString("description");
-            System.out.println("RESULT: " + title + " " + desrciption);
+            double price = resultSet.getDouble("price");
+            String description = resultSet.getString("description");
+            String imageRoute = resultSet.getString("image_route");
+            System.out.println("RESULT: " + title + " " + price + " " + description + " " + imageRoute);
         }
     }
 
+    public void getProductByCategory() throws SQLException{
+        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE product_category = ?");
+        stmnt.setString(1, "horror");
+        ResultSet resultSet = stmnt.executeQuery();
+        getQueryData(resultSet);
+    }
+
+    public void getProductByPublisher() throws SQLException{
+        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE publisher = ?");
+        stmnt.setString(1, "máté production");
+        ResultSet resultSet = stmnt.executeQuery();
+        getQueryData(resultSet);
+    }
+
+    public void getBestsellers() throws SQLException{
+        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE bestseller = TRUE");
+        ResultSet resultSet = stmnt.executeQuery();
+        getQueryData(resultSet);
+    }
 }
