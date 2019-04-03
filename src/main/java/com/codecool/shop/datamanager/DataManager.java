@@ -26,6 +26,7 @@ public class DataManager {
         }
     }
 
+
     private void getQueryData(ResultSet resultSet) throws SQLException{
         while (resultSet.next()) {
             String title = resultSet.getString("title");

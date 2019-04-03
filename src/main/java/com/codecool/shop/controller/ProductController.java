@@ -31,7 +31,7 @@ public class ProductController extends HttpServlet {
         try {
             db.getProductByCategory();
             db.getProductByPublisher();
-        } catch(SQLException exception){
+        } catch (SQLException exception) {
             System.out.println(exception);
         }
 
@@ -49,47 +49,47 @@ public class ProductController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 //          context.setVariables(params);
-            context.setVariable("recipient", "World");
-            context.setVariable("categories", productCategoryDataStore.getAll());
+        context.setVariable("recipient", "World");
+        context.setVariable("categories", productCategoryDataStore.getAll());
+        context.setVariable("products", productDataStore.getAll());
+        context.setVariable("publishers", supplierDataStore.getAll());
+
+        if (!req.getParameterNames().hasMoreElements() || req.getParameterValues(req.getParameterNames().nextElement())[0].equals("All")) {
             context.setVariable("products", productDataStore.getAll());
-            context.setVariable("publishers", supplierDataStore.getAll());
+        } else if (req.getParameterNames().nextElement().equals("categories")) {
 
-            if (!req.getParameterNames().hasMoreElements() || req.getParameterValues(req.getParameterNames().nextElement())[0].equals("All")) {
-                context.setVariable("products", productDataStore.getAll());
-            } else if (req.getParameterNames().nextElement().equals("categories")) {
+            if (req.getParameter("categories").equals("Bestseller")) {
+                context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));
 
-                if (req.getParameter("categories").equals("Bestseller")) {
-                    context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));
+            } else if (req.getParameter("categories").equals("Gastronomy")) {
+                context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(2)));
 
-                } else if (req.getParameter("categories").equals("Gastronomy")) {
-                    context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(2)));
+            } else if (req.getParameter("categories").equals("SciFi")) {
+                context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(3)));
 
-                } else if (req.getParameter("categories").equals("SciFi")) {
-                    context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(3)));
+            } else if (req.getParameter("categories").equals("Horror")) {
+                context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(4)));
 
-                } else if (req.getParameter("categories").equals("Horror")) {
-                    context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(4)));
-
-                } else if (req.getParameter("categories").equals("History")) {
-                    context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(5)));
-                }
-
-
-            } else if (req.getParameterNames().nextElement().equals("publishers")) {
-
-                    if (req.getParameter("publishers").equals("Bloomsbury Publishing PLC")) {
-                        context.setVariable("products", productDataStore.getBy(supplierDataStore.find(1)));
-
-                    } else if (req.getParameter("publishers").equals("HarperCollins Publishers")) {
-                        context.setVariable("products", productDataStore.getBy(supplierDataStore.find(2)));
-
-                    } else if (req.getParameter("publishers").equals("Walker Books Ltd")) {
-                        context.setVariable("products", productDataStore.getBy(supplierDataStore.find(3)));
-
-                    } else if (req.getParameter("publishers").equals("Penguin Putnam Inc")) {
-                        context.setVariable("products", productDataStore.getBy(supplierDataStore.find(4)));
-                    }
+            } else if (req.getParameter("categories").equals("History")) {
+                context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(5)));
             }
-            engine.process("product/index.html", context, resp.getWriter());
+
+
+        } else if (req.getParameterNames().nextElement().equals("publishers")) {
+
+            if (req.getParameter("publishers").equals("Bloomsbury Publishing PLC")) {
+                context.setVariable("products", productDataStore.getBy(supplierDataStore.find(1)));
+
+            } else if (req.getParameter("publishers").equals("HarperCollins Publishers")) {
+                context.setVariable("products", productDataStore.getBy(supplierDataStore.find(2)));
+
+            } else if (req.getParameter("publishers").equals("Walker Books Ltd")) {
+                context.setVariable("products", productDataStore.getBy(supplierDataStore.find(3)));
+
+            } else if (req.getParameter("publishers").equals("Penguin Putnam Inc")) {
+                context.setVariable("products", productDataStore.getBy(supplierDataStore.find(4)));
+            }
+        }
+        engine.process("product/index.html", context, resp.getWriter());
     }
 }

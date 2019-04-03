@@ -51,6 +51,20 @@ class ProductDaoMemTest {
     }
 
     @Test
+    public void testIsProductGetAll() {
+        ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+        Supplier supplier = new Supplier("Animus", "description");
+        ProductCategory productCategory = new ProductCategory("Fantasy", "book", "categoryDescription");
+        Product product = new Product("Harry Potter", 15.2f, "USD", "description", productCategory, supplier);
+        Supplier supplier2 = new Supplier("Enimus", "description");
+        ProductCategory productCategory2 = new ProductCategory("Horror", "book", "categoryDescription");
+        Product product2 = new Product("Game of thrones", 13.42f, "USD", "description", productCategory2, supplier2);
+        productDaoMem.add(product);
+        productDaoMem.add(product2);
+        assertEquals(2, productDaoMem.getAll().size());
+    }
+
+    @Test
     public void testIsProductGetBySupplier() {
         ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
         Supplier supplier = new Supplier("Animus", "description");

@@ -39,5 +39,15 @@ class ProductCategoryDaoMemTest {
         productCategoryDaoMem.remove(1);
         assertEquals(0, productCategoryDaoMem.getAll().size());
     }
+
+    @Test
+    public void testIsCategoryGetAll() {
+        ProductCategoryDaoMem productCategoryDaoMem = ProductCategoryDaoMem.getInstance();
+        ProductCategory productCategory = new ProductCategory("Fantasy", "book", "categoryDescription");
+        ProductCategory productCategory2 = new ProductCategory("Horror", "book", "categoryDescription");
+        productCategoryDaoMem.add(productCategory);
+        productCategoryDaoMem.add(productCategory2);
+        assertEquals(2, productCategoryDaoMem.getAll().size());
+    }
 }
 
