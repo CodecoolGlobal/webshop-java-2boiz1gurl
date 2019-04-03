@@ -21,26 +21,26 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/asd"}, loadOnStartup = 1)
+@WebServlet(urlPatterns = {"/"}, loadOnStartup = 1)
 public class ProductController extends HttpServlet {
+
+    private ProductDao productDataStore = ProductDaoMem.getInstance();
+    private ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+    private SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        DataManager db = DataManager.getInstance();
-        try {
-            db.getProductByCategory();
-            db.getProductByPublisher();
-        } catch (SQLException exception) {
-            System.out.println(exception);
-        }
+//        DataManager db = DataManager.getInstance();
+//        try {
+//            db.getProductByCategory();
+//            db.getProductByPublisher();
+//        } catch (SQLException exception) {
+//            System.out.println(exception);
+//        }
 
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
 
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
 //        Map params = new HashMap<>();
 //        params.put("category", productCategoryDataStore.find(1));
@@ -54,42 +54,64 @@ public class ProductController extends HttpServlet {
         context.setVariable("products", productDataStore.getAll());
         context.setVariable("publishers", supplierDataStore.getAll());
 
-        if (!req.getParameterNames().hasMoreElements() || req.getParameterValues(req.getParameterNames().nextElement())[0].equals("All")) {
+
+
+
+        if (!req.getParameterNames().hasMoreElements() || req.getParameterValues(req.getParameterNames().nextElement()).equals("All")) {
             context.setVariable("products", productDataStore.getAll());
         } else if (req.getParameterNames().nextElement().equals("categories")) {
 
-            if (req.getParameter("categories").equals("Bestseller")) {
-                context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-
-            } else if (req.getParameter("categories").equals("Gastronomy")) {
-                context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(2)));
-
-            } else if (req.getParameter("categories").equals("SciFi")) {
-                context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(3)));
-
-            } else if (req.getParameter("categories").equals("Horror")) {
-                context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(4)));
-
-            } else if (req.getParameter("categories").equals("History")) {
-                context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(5)));
-            }
-
+            filterByCategory(req, context);
 
         } else if (req.getParameterNames().nextElement().equals("publishers")) {
 
-            if (req.getParameter("publishers").equals("Bloomsbury Publishing PLC")) {
-                context.setVariable("products", productDataStore.getBy(supplierDataStore.find(1)));
+            filterByPublisher(req, context);
 
-            } else if (req.getParameter("publishers").equals("HarperCollins Publishers")) {
-                context.setVariable("products", productDataStore.getBy(supplierDataStore.find(2)));
-
-            } else if (req.getParameter("publishers").equals("Walker Books Ltd")) {
-                context.setVariable("products", productDataStore.getBy(supplierDataStore.find(3)));
-
-            } else if (req.getParameter("publishers").equals("Penguin Putnam Inc")) {
-                context.setVariable("products", productDataStore.getBy(supplierDataStore.find(4)));
-            }
         }
         engine.process("product/index.html", context, resp.getWriter());
+    }
+
+    private void filterByCategory(HttpServletRequest req, WebContext context) {
+        int index = 0;
+        String category = req.getParameter("categories");
+        switch (category){
+            case "Bestseller":
+                index = 1;
+                break;
+            case "Gastronomy":
+                index = 2;
+                break;
+            case "SciFi":
+                index = 3;
+                break;
+            case "Horror":
+                index = 4;
+                break;
+            case "History":
+                index = 5;
+                break;
+        }
+        context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(index)));
+    }
+
+    private void filterByPublisher(HttpServletRequest req, WebContext context) {
+
+        int index = 0;
+        String publisher = req.getParameter("publishers");
+        switch (publisher){
+            case "Bloomsbury Publishing PLC":
+                index = 1;
+                break;
+            case "HarperCollins Publishers":
+                index = 2;
+                break;
+            case "Walker Books Ltd":
+                index = 3;
+                break;
+            case "Penguin Putnam Inc":
+                index = 4;
+                break;
+        }
+        context.setVariable("products", productDataStore.getBy(supplierDataStore.find(index)));
     }
 }

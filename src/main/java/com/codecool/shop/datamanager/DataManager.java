@@ -37,28 +37,11 @@ public class DataManager {
         }
     }
 
-    public void getAllProducts() throws SQLException{
-        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory");
-        ResultSet resultSet = stmnt.executeQuery();
-        getQueryData(resultSet);
-    }
+
 
     public void getProductByCategory() throws SQLException{
         PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE product_category = ?");
         stmnt.setString(1, "horror");
-        ResultSet resultSet = stmnt.executeQuery();
-        getQueryData(resultSet);
-    }
-
-    public void getProductByPublisher() throws SQLException{
-        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE publisher = ?");
-        stmnt.setString(1, "máté production");
-        ResultSet resultSet = stmnt.executeQuery();
-        getQueryData(resultSet);
-    }
-
-    public void getBestsellers() throws SQLException{
-        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE bestseller = TRUE");
         ResultSet resultSet = stmnt.executeQuery();
         getQueryData(resultSet);
     }
