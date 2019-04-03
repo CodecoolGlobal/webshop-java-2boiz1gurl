@@ -26,15 +26,21 @@ public class DataManager {
         }
     }
 
-
-    private void getQueryData(ResultSet resultSet) throws SQLException{
+    private void getQueryData(ResultSet resultSet) throws SQLException {
         while (resultSet.next()) {
             String title = resultSet.getString("title");
             double price = resultSet.getDouble("price");
+            String currency = resultSet.getString("currency");
             String description = resultSet.getString("description");
             String imageRoute = resultSet.getString("image_route");
-            System.out.println("RESULT: " + title + " " + price + " " + description + " " + imageRoute);
+            System.out.println("RESULT: " + title + " " + price + " " + currency + " " + description + " " + imageRoute);
         }
+    }
+
+    public void getAllProducts() throws SQLException{
+        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory");
+        ResultSet resultSet = stmnt.executeQuery();
+        getQueryData(resultSet);
     }
 
     public void getProductByCategory() throws SQLException{
