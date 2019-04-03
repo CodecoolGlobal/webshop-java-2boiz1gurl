@@ -22,25 +22,16 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/"}, loadOnStartup = 1)
 public class ProductController extends HttpServlet {
 
-    private ProductDao productDataStore = ProductDaoMem.getInstance();
-    private ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-    private SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+    private ProductDao productDataStore = ProductDaoDB.getInstance();
+    private ProductCategoryDao productCategoryDataStore = ProductCategoryDaoDB.getInstance();
+    private SupplierDao supplierDataStore = SupplierDaoDB.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        DataManager db = DataManager.getInstance();
-        try {
-            db.getProductByCategory();
-            db.getProductByPublisher();
-        } catch(SQLException exception){
-            System.out.println(exception);
-        }
+        ProductDao productDataStore = ProductDaoDB.getInstance();
 
-
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoDB.getInstance();
 
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
