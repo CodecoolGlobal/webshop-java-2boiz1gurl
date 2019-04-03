@@ -24,12 +24,12 @@ public class ShoppingCartController extends HttpServlet {
         // get parameters from request
         String productId = req.getParameter("productId");
 
-//        // print the response
+        // print the response
 //        resp.setContentType("text/html");
 //        PrintWriter out = resp.getWriter();
 //        out.write("<html><body>");
 //        out.write("<h2>Servlet HTTP Request Parameters example</h2>");
-//        out.write("<p>param1: " + productId + "</p>");
+//        out.write("<p>book: " + productId + "</p>");
 
         // add product to cart
         ShoppingCartDaoMem.getInstance().addToCart(Integer.parseInt(productId));
