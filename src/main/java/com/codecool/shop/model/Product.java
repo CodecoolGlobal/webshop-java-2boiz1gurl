@@ -8,6 +8,7 @@ public class Product extends BaseModel {
     private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
+    private String imageRoute;
 
 
     public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
@@ -15,6 +16,12 @@ public class Product extends BaseModel {
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
+    }
+
+    public Product(String name, float defaultPrice, String currencyString, String description, String imageRoute){
+        super(name, description);
+        this.setPrice(defaultPrice, currencyString);
+        this.setImageRoute(imageRoute);
     }
 
     public float getDefaultPrice() {
@@ -58,6 +65,10 @@ public class Product extends BaseModel {
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
         this.supplier.addProduct(this);
+    }
+
+    public void setImageRoute(String imageUrl){
+        this.imageRoute = imageUrl;
     }
 
     @Override

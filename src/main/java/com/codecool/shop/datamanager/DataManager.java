@@ -1,7 +1,9 @@
 package com.codecool.shop.datamanager;
+import com.codecool.shop.model.Product;
+
 import javax.xml.crypto.Data;
 import java.sql.*;
-
+import java.util.HashMap;
 
 
 public class DataManager {
@@ -26,33 +28,51 @@ public class DataManager {
         }
     }
 
-    private void getQueryData(ResultSet resultSet) throws SQLException{
+    private HashMap getQueryData(ResultSet resultSet) throws SQLException{
+        HashMap<String, Product> productsData = new HashMap<>();
         while (resultSet.next()) {
             String title = resultSet.getString("title");
-            double price = resultSet.getDouble("price");
+            float price = resultSet.getFloat("price");
+            String currency = resultSet.getString("currency");
             String description = resultSet.getString("description");
             String imageRoute = resultSet.getString("image_route");
-            System.out.println("RESULT: " + title + " " + price + " " + description + " " + imageRoute);
+            Product product = new Product(title, price, currency, description, imageRoute);
+            productsData.put("product" + productsData.size(), product);
         }
+        return productsData;
     }
 
-    public void getProductByCategory() throws SQLException{
-        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE product_category = ?");
-        stmnt.setString(1, "horror");
-        ResultSet resultSet = stmnt.executeQuery();
-        getQueryData(resultSet);
-    }
+//    public void getProductByCategory(String category) throws SQLException{
+//        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE product_category = ?");
+//        stmnt.setString(1, category);
+//        ResultSet resultSet = stmnt.executeQuery();
+//        getQueryData(resultSet);
+//    }
+//
+//    public void getProductByPublisher(String publisher) throws SQLException{
+//        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE publisher = ?");
+//        stmnt.setString(1, publisher);
+//        ResultSet resultSet = stmnt.executeQuery();
+//        getQueryData(resultSet);
+//    }
+//
+//    public void getBestsellers() throws SQLException{
+//        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE bestseller = TRUE");
+//        ResultSet resultSet = stmnt.executeQuery();
+//        getQueryData(resultSet);
+//    }
 
-    public void getProductByPublisher() throws SQLException{
-        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE publisher = ?");
-        stmnt.setString(1, "máté production");
-        ResultSet resultSet = stmnt.executeQuery();
-        getQueryData(resultSet);
-    }
+    public ResultSet getAllRecords(String tableName) throws SQLException {
+        String sql = "SELECT * FROM " + tableName;
+        ResultSet resultSet = null;
 
-    public void getBestsellers() throws SQLException{
-        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM inventory WHERE bestseller = TRUE");
-        ResultSet resultSet = stmnt.executeQuery();
-        getQueryData(resultSet);
+        try {
+            PreparedStatement stmnt = connection.prepareStatement(sql);
+            resultSet = stmnt.executeQuery();
+        } catch (SQLException exception) {
+            System.out.println(exception + " occured!");
+        }
+
+        return resultSet;
     }
 }
